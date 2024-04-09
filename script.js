@@ -20,24 +20,24 @@ const formSubmitted = () => {
     formData.description = $('#description').val();
 
     console.log(formData);
-    postAnime(formData);
+    postBike(formData);
 }
 
-function postAnime(anime){
+function postBike(bike){
     $.ajax({
-        url:'/api/anime',
+        url:'/api/bike',
         type:'POST',
-        data:anime,
+        data:bike,
         success: (result)=>{
             if (result.statusCode === 201) {
-                alert('anime post successful');
+                alert('bike post successful');
             }
         }
     });
 }
 
-function getAllAnime(){
-    $.get('/api/anime', (response)=>{
+function getAllBike(){
+    $.get('/api/bike', (response)=>{
         // response's data is in array format, so we can use it
         if (response.statusCode === 200) {
             addCards(response.data);
@@ -51,5 +51,5 @@ $(document).ready(function(){
         formSubmitted();
     });
     $('.modal').modal();
-    getAllAnime();
+    getAllBike();
 });

@@ -1,7 +1,7 @@
 let express = require('express');
 let app = express();
 const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = "mongodb+srv://admin:admin@cluster0.nsw2a3u.mongodb.net/?retryWrites=true&w=majority";
+const uri = "mongodb+srv://admin:admin@cluster0.xhgrj2i.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 let port = process.env.port || 3000;
 let collection;
 
@@ -21,7 +21,7 @@ const client = new MongoClient(uri, {
 async function runDBConnection() {
     try {
         await client.connect();
-        collection = client.db().collection('anime');
+        collection = client.db().collection('bike');
         console.log(collection);
     } catch(ex) {
         console.error(ex);
@@ -32,28 +32,28 @@ app.get('/', function (req,res) {
     res.render('index.html');
 });
 
-app.get('/api/anime', (req,res) => {
-    getAllAnime((err,result)=>{
+app.get('/api/bike', (req,res) => {
+    getAllBike((err,result)=>{
         if (!err) {
-            res.json({statusCode:200, data:result, message:'get all anime successful'});
+            res.json({statusCode:200, data:result, message:'get all bike successful'});
         }
     });
 });
 
-app.post('/api/anime', (req,res)=>{
-    let anime = req.body;
-    postAnime(anime, (err, result) => {
+app.post('/api/bike', (req,res)=>{
+    let bike = req.body;
+    postBike(bike, (err, result) => {
         if (!err) {
             res.json({statusCode:201, data:result, message:'success'});
         }
     });
 });
 
-function postAnime(anime,callback) {
-    collection.insertOne(anime,callback);
+function postBike(bike,callback) {
+    collection.insertOne(bike,callback);
 }
 
-function getAllAnime(callback){
+function getAllBike(callback){
     collection.find({}).toArray(callback);
 }
 
